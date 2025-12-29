@@ -3,6 +3,12 @@ import pandas as pd
 
 #Loading the CSV File
 data= pd.read_csv('data/sample.csv')
+
+#Standardizing column names
+data.columns=(data.columns
+              .str.strip()              # remove extra spaces
+              .str.lower()              # avoids case bugs
+              .str.replace(' ', '_'))   # Python- friendly names
 print(data) 
 
 # .to_string() forces panda to print entire DataFrame, Useful for smaller datasets.

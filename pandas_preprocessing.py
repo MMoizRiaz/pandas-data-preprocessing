@@ -3,13 +3,22 @@ import pandas as pd
 
 #Loading the CSV File
 data= pd.read_csv('data/sample.csv')
+print(data['name'])   
 
-#Standardizing column names
+## STEP 2: Standardizing column names
 data.columns=(data.columns
               .str.strip()              # remove extra spaces
               .str.lower()              # avoids case bugs
               .str.replace(' ', '_'))   # Python- friendly names
 print(data) 
+
+## STEP 3: Strip whitespace in string columns
+string_columns= data.select_dtypes(include='object').columns
+for col in string_columns:
+    data[col]= data[col].astype('string').str.strip()            
+    # its important to choose astype(str) even if the column is string because NaN(empty cell) is type float.
+    # if we dont convert it for now the called function gives error. #astype('string'), keeps NaN as Nan instead
+    # of converting it to string and manages not giving an error.
 
 # .to_string() forces panda to print entire DataFrame, Useful for smaller datasets.
 # For larger datasets this method can flood your teminal, be slow and unreadable.
@@ -18,7 +27,7 @@ print(data.to_string())
 # or
 pd.set_option('display.max_columns', None) # removes restrictions for columns and display all columns.
 pd.set_option('display.max_rows', None)    # removes restrictions for rows and displan all rows.
-print(data)                        
+print(data)                     
 
 # restrict the rows display to specific amount
 # Everytime you print data only 8 rows will be shown unless this configuration is changed
@@ -30,7 +39,7 @@ pd.reset_option('display.max_rows')
 
                 
 
-# Basic Inspection
+## STEP 1: Basic Inspection
 print('Shape:',data.shape)              # prints number of rows and columns
 print('\nColumns: ',data.columns)       # print only number of columns 
 

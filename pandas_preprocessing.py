@@ -5,6 +5,7 @@ import pandas as pd
 data= pd.read_csv('data/sample.csv')
 print(data['name'])   
 
+
 ## STEP 2: Standardizing column names
 data.columns=(data.columns
               .str.strip()              # remove extra spaces
@@ -12,13 +13,22 @@ data.columns=(data.columns
               .str.replace(' ', '_'))   # Python- friendly names
 print(data) 
 
+
 ## STEP 3: Strip whitespace in string columns
-string_columns= data.select_dtypes(include='object').columns
+string_columns= data.select_dtypes(include=['object','string']).columns
 for col in string_columns:
-    data[col]= data[col].astype('string').str.strip()            
+    data[col]= (data[col]
+                .astype('string')
+                .str.strip()
+                .str.replace(r'\s+',' ',regex=True))     #Step_4_Part1: changing multiple whitespaces in between strings to only 1       
     # its important to choose astype(str) even if the column is string because NaN(empty cell) is type float.
     # if we dont convert it for now the called function gives error. #astype('string'), keeps NaN as Nan instead
     # of converting it to string and manages not giving an error.
+
+
+## STEP 4: Convert empty spaces to NA
+data= data.replace(r'^\s*$',pd.NA,regex=True)           #Step_4_Part1: replacing empty values with NA
+
 
 # .to_string() forces panda to print entire DataFrame, Useful for smaller datasets.
 # For larger datasets this method can flood your teminal, be slow and unreadable.

@@ -94,6 +94,16 @@ data= data.fillna(value=fill_text)
 data['age']= data['age'].fillna(data['age'].median())
 data['score']=data['score'].fillna(data['score'].mean())
 
+## STep 9: Remove duplicates + basic sanity checks
+# Remove duplicate rows
+data= data.drop_duplicates()
+# Sanity checks (set invalid values to missing)
+data.loc[(data["age"] < 0) | (data["age"] > 100), "age"] = pd.NA
+data.loc[data['salary']<=0, 'salary']= pd.NA
+data.loc[(data['score'] < 0) | (data['score'] > 100), 'score'] = pd.NA
+# Checking dulicates and senity checks
+print("\nDuplicate count after dropping:", data.duplicated().sum())
+print("\nMissing after sanity checks:\n", data.isna().sum())
 
 # .to_string() forces panda to print entire DataFrame, Useful for smaller datasets.
 # For larger datasets this method can flood your teminal, be slow and unreadable.

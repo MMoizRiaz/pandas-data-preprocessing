@@ -42,6 +42,17 @@ data['city']= (
     .str.title()
 )      # title() standardise city names
 
+## Step 6: Clean and convert Numeric columns
+data['salary']=(
+    data['salary']
+    .astype('string')
+    .str.replace(',','',regex=False)
+    .replace('not_available', pd.NA)
+)
+data['salary']= pd.to_numeric(data['salary'], errors='coerce')
+# Convert age and score to numeric
+data['age']=pd.to_numeric(data['age'], errors='coerce')
+data['score']=pd.to_numeric(data['score'], errors='coerce')
 
 # .to_string() forces panda to print entire DataFrame, Useful for smaller datasets.
 # For larger datasets this method can flood your teminal, be slow and unreadable.

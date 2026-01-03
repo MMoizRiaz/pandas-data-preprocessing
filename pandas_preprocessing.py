@@ -54,6 +54,35 @@ data['salary']= pd.to_numeric(data['salary'], errors='coerce')
 data['age']=pd.to_numeric(data['age'], errors='coerce')
 data['score']=pd.to_numeric(data['score'], errors='coerce')
 
+## Step 7: Parse datetime columns
+# Step A: Normalise Seperators
+data['signup_date']=data['signup_date'].astype('string').str.replace('/','-', regex=False)
+data['last_login']=data['last_login'].astype('string').str.replace('/','-',regex=False)
+# Step B: parse with 2 passes (ISO first, then day-first)   
+# Try ISO YYYY-MM-DD
+signup= pd.to_datetime(
+    data['signup_date'],
+    errors='coerce',
+    format="%Y-%m-%d"
+)
+last= pd.to_datetime(
+    data['last_login'],
+    errors='coerce',
+    format="%Y-%m-%d"
+)
+# For remaining NaT, try DD-MM-YYYY
+signup2= pd.to_datetime(
+    data['signup_date'], errors='coerce', format='%d-%m-%Y'
+)
+last2= pd.to_datetime(
+    data['last_login'], errors='coerce', format='%d-%m-%Y'
+)
+# Combine: Keep ISO results, fill failures withh day-first results if exist
+data['signup_date'] = signup.fillna(signup2)
+data['last_login'] = last.fillna(last2)
+
+
+
 # .to_string() forces panda to print entire DataFrame, Useful for smaller datasets.
 # For larger datasets this method can flood your teminal, be slow and unreadable.
 # Use Carefully

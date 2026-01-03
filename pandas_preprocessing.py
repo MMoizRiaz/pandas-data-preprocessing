@@ -29,6 +29,19 @@ for col in string_columns:
 ## STEP 4: Convert empty spaces to NA
 data= data.replace(r'^\s*$',pd.NA,regex=True)           #Step_4_Part1: replacing empty values with NA
 
+## STEP 5: Normalise Gender values and City names:
+# Normalise Gender values
+data['gender']=(
+    data['gender']
+    .str.upper()
+    .replace({'M': 'Male', 'F': 'Female'})
+)
+data['city']= (
+    data['city']
+    .str.replace('"','', regex=False)
+    .str.title()
+)      # title() standardise city names
+
 
 # .to_string() forces panda to print entire DataFrame, Useful for smaller datasets.
 # For larger datasets this method can flood your teminal, be slow and unreadable.

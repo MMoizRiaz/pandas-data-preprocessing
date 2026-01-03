@@ -81,6 +81,18 @@ last2= pd.to_datetime(
 data['signup_date'] = signup.fillna(signup2)
 data['last_login'] = last.fillna(last2)
 
+## Step 8: Handle missing values
+# Fill missing text/categorical values
+fill_text={
+    'name': 'Unknown',
+    'gender': 'Unknown',
+    'city': 'Unknown',
+    'department': 'Unknown'
+}
+data= data.fillna(value=fill_text)
+#Fill missing numeric values (simple, explainable rules)
+data['age']= data['age'].fillna(data['age'].median())
+data['score']=data['score'].fillna(data['score'].mean())
 
 
 # .to_string() forces panda to print entire DataFrame, Useful for smaller datasets.

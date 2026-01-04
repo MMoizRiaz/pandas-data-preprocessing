@@ -1,0 +1,13 @@
+user_id,name,age,gender,city,signup_date,last_login,salary,department,score
+1001,Ali,23.0,Male,Berlin,2025-01-03,2025-02-10,55000,Data,88.0
+1002,Sara,28.5,Female,Erlangen,2025-01-10,,48000,AI,92.0
+1003,John Doe,29.0,Male,Nuremberg,2025-01-10,2025-02-01,62000,Engineering,75.0
+1004,Unknown,41.0,Female,Munich,2025-01-12,2025-02-11,,Data,81.0
+1005,Fatima,34.0,Unknown,Berlin,2025-01-15,2025-02-14,71000,AI,83.3
+1006,Omar,28.0,Male,Hamburg,2025-01-20,2025-02-15,65000,Engineering,89.0
+1007,Sara,28.5,Female,Erlangen,2025-01-10,,48000,AI,92.0
+1008,Lina,19.0,Female,Cologne,2025-01-25,2025-02-18,42000,Data,67.0
+1009,Max,52.0,Male,Stuttgart,2025-01-28,2025-02-20,83000,Sales,73.0
+1010,Noor,27.0,Female,Unknown,2025-02-02,2025-02-21,59000,AI,85.0
+1011,Hassan,30.0,Male,Frankfurt,2025-02-05,2025-02-22,70000,Engineering,91.0
+1012,Mina,26.0,Female,Berlin,2025-02-07,2025-02-23,61000,Data,83.3
